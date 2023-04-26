@@ -1,0 +1,6 @@
+.idea/
+docs/
+temp/
+public/img/
+node_modules/
+.env
