@@ -1,0 +1,24 @@
+doctype html
+
+html
+    block def
+        - var parseUSD = val => '$ ' + val.toString().replace(/\d{2}$/, '.$&')
+
+    head
+        block head
+            meta(charset='UTF-8')
+            meta(http-equiv='X-UA-Compatible' content='ie=edge')
+            meta(name='viewport' content='width=device-width, initial-scale=1')
+
+            link(rel='stylesheet' href='bootstrap-icons.css')
+            link(rel='stylesheet' href='bulma.css')
+            link(rel='stylesheet' href='common.css')
+
+    body
+        +navbar
+
+        block content
+
+        block scripts
+            script(src='jquery.js')
+            script(src='navbar.js')

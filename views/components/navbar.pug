@@ -1,0 +1,38 @@
+mixin navbar
+    div.navbar.has-shadow
+        div.navbar-brand
+            a.navbar-item(href='/')
+                b COMPANY
+
+            div.navbar-burger
+                span
+                span
+                span
+
+        div.navbar-menu
+            div.navbar-start
+                a.navbar-item(href='/') Store
+
+                div.navbar-item.has-dropdown.is-hoverable
+                    span.navbar-link About
+
+                    div.navbar-dropdown.is-hidden-touch
+                        a.navbar-item(href='/payment') Payment
+                        a.navbar-item(href='/delivery') Delivery
+                        a.navbar-item(href='/contact') Contact
+
+            div.navbar-end
+                if authenticated
+                    div.navbar-item.has-dropdown.is-hoverable
+                        span.navbar-link #{user.email}
+
+                        div.navbar-dropdown.is-hidden-touch
+                            a.navbar-item(href='/settings') Settings
+                            hr.dropdown-divider.is-hidden-touch
+                            a.navbar-item(href='/logout') Log out
+
+                div.navbar-item
+                    div.buttons
+                        if !authenticated
+                            a.button.is-primary(href='/login') Log in
+                        a.button.is-light(href='/cart') Cart

@@ -1,0 +1,62 @@
+:root {
+    --gray: hsl(0, 0%, 86%);
+    --light: hsl(0, 0%, 96%);
+}
+
+
+.is-round {
+    border-radius: 50%;
+}
+
+.is-scrollable {
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.has-text-small {
+    font-size: .9rem;
+}
+
+.w-12rem {
+    width: 12rem;
+}
+
+.w-full {
+    width: 100%;
+}
+
+@media screen and (max-width: 1023px) {
+    .is-flex-direction-column-touch {
+        flex-direction: column;
+    }
+
+    .mt-2-touch {
+        margin-top: .5rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .is-align-items-center-desktop {
+        align-items: center;
+    }
+
+    .m-2-desktop {
+        margin: .5rem;
+    }
+
+    .mr-2-desktop {
+        margin-right: .5rem;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .m-4-tablet {
+        margin: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .ml-5-mobile {
+        margin-left: 1.5rem;
+    }
+}

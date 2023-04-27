@@ -1,0 +1,59 @@
+mixin menu
+    form#menu-form(action='/')
+        div.mb-5
+            p.menu-label Search
+
+            div.control.has-icons-left
+                input.input.is-small.is-rounded(type='search' name='search')
+                span.icon.is-small.is-left: i.bi.bi-search
+
+        div.mb-5
+            p.menu-label.mb-1 Sort
+
+            div.menu-item.has-text-small
+                input(data-trigger type='radio' name='order' value='' checked=!/cost_asc|cost_desc/.test(original_url))
+                |
+                | Alphabetically
+
+            div.menu-item.has-text-small
+                input(data-trigger type='radio' name='order' value='cost_asc' checked=/cost_asc/.test(original_url))
+                |
+                | Lowest price
+
+            div.menu-item.has-text-small
+                input(data-trigger type='radio' name='order' value='cost_desc' checked=/cost_desc/.test(original_url))
+                |
+                | Highest price
+
+        div
+            p.menu-label.mb-1 Filter
+
+            div.has-text-small.mb-2
+                p.menu-item.has-text-weight-semibold Categories
+
+                each category in categories
+                    div.menu-item.is-nested
+                        input(
+                            data-trigger
+                            type='checkbox'
+                            name='category'
+                            value=category.id
+                            checked=original_url.includes('category=' + category.id)
+                        )
+                        |
+                        | #{category.name}
+
+            div.has-text-small
+                p.menu-item.has-text-weight-semibold Manufacturers
+
+                each manufacturer in manufacturers
+                    div.menu-item.is-nested
+                        input(
+                            data-trigger
+                            type='checkbox'
+                            name='manufacturer'
+                            value=manufacturer.id
+                            checked=original_url.includes('manufacturer=' + manufacturer.id)
+                        )
+                        |
+                        | #{manufacturer.name}

@@ -1,0 +1,29 @@
+{
+    "scripts": {
+        "start" : "nodemon -q bin",
+        "seed"  : "node bin/seed",
+        "docs"  : "jsdoc -c .jsdocrc"
+    },
+    "dependencies": {
+        "bootstrap-icons"           : "~1.10.4",
+        "bulma"                     : "~0.9.4",
+        "connect-flash"             : "~0.1.1",
+        "connect-session-sequelize" : "~7.1.6",
+        "dotenv"                    : "~16.0.3",
+        "express"                   : "~4.18.2",
+        "express-async-errors"      : "~3.1.1",
+        "express-session"           : "~1.17.3",
+        "express-validator"         : "~7.0.1",
+        "jquery"                    : "~3.6.4",
+        "nodemailer"                : "~6.9.1",
+        "pg"                        : "~8.10.0",
+        "pg-hstore"                 : "~2.3.4",
+        "pug"                       : "~3.0.2",
+        "sequelize"                 : "~6.31.0"
+    },
+    "devDependencies": {
+        "clean-jsdoc-theme"         : "~4.2.7",
+        "jsdoc"                     : "~3.6.11",
+        "nodemon"                   : "~2.0.22"
+    }
+}

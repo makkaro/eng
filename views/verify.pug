@@ -1,0 +1,32 @@
+extends templates/layout
+
+include components/navbar
+include components/message
+
+block append def
+    - var status
+
+    case status
+        when 'success'
+            - var type = 'is-success'
+            - var text = 'E-mail verification complete. You may now <a href=\'/login\'><u>log in</u></a>'
+        when 'already-verified'
+            - var type = 'is-info'
+            - var text = 'E-mail address is already verified. <a href=\'/login\'><u>Log in</u></a>'
+        when 'bad-request'
+            - var type = 'is-warning'
+            - var text = 'Verification URL is not valid.'
+        when 'server-error'
+            - var type = 'is-warning'
+            - var text = 'Server failure. Try again later.'
+        default
+            - var type = 'is-warning'
+            - var text = 'Unspecified error.'
+
+block content
+    div.container
+        div.mb-6.is-hidden-touch
+
+        div.columns.is-justify-content-center
+            div.column.is-three-fifths-tablet.is-half-desktop.is-two-fifths-widescreen
+                +message(type, text)

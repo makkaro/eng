@@ -1,0 +1,4 @@
+mixin notification(type, text)
+    div(class='notification ' + type)
+        button.delete
+        | #{text}

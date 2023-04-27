@@ -1,0 +1,8 @@
+mixin message(type, text)
+    div(class='message ' + type)
+        div.message-header
+            | #{type.charAt(3).toUpperCase() + type.slice(4)}
+            a.delete(href='/')
+
+        div.message-body
+            | !{text}

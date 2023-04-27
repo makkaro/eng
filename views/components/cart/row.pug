@@ -1,0 +1,34 @@
+mixin cart_row(cart_item)
+    div.cart-row
+        div.is-flex.w-full
+            div.is-flex.is-align-items-center.mr-2
+                div.image.is-64x64
+                    img(src=cart_item.img)
+
+            div.is-flex-grow-1.is-flex.is-flex-direction-column-touch
+                div.is-flex-grow-1.is-flex.is-align-items-center-desktop
+                    div.is-flex-grow-1.mr-2
+                        div.cart-item-name
+                            | #{cart_item.name}
+
+                    div.mr-2-desktop
+                        span.is-inline-block.mr-2 #{parseUSD(cart_item.cost)}
+
+                        span.has-text-grey (#{parseUSD(cart_item.subtotal)})
+
+
+                div.is-flex.is-justify-content-space-between.is-align-items-center-desktop.mt-2-touch
+                    form.update-form(action='/cart/update')
+                        input(type='hidden' name='id' value=cart_item.id)
+
+                        div.select.mr-2
+                            select(name='amount')
+                                each number in Array.from(Array(99), (v, k) => k + 1)
+                                    option(selected=(number == cart_item.amount) value=number) #{number}
+
+                    form(action='/cart/delete')
+                        input(type='hidden' name='id' value=cart_item.id)
+
+                        button.button.is-outlined
+                            div.icon
+                                i.bi.bi-trash

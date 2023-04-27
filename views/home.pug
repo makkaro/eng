@@ -1,0 +1,45 @@
+extends templates/layout
+
+include components/navbar
+include components/home/card
+include components/home/menu
+
+block append def
+    - var added, categories, manufacturers, products
+
+block append head
+    link(rel='stylesheet' href='home.css')
+
+block content
+    div.ml-3.mt-3.mb-3.is-hidden-desktop
+        button#menu-trigger-touch.button.is-primary.is-light.has-text-small Show menu
+
+    div.columns.is-relative.m-0
+        div.menu-overlay.is-hidden-desktop
+
+        div.column.is-narrow.menu-wrapper
+            div.is-scrollable.w-12rem
+                +menu
+
+        div.column
+            div.container
+                div.columns.is-multiline
+                    each product in products
+                        div.column.is-6-tablet.is-4-widescreen.is-3-fullhd
+                            +card(product)
+
+        div.column.is-narrow.is-hidden-touch
+            div.w-12rem
+
+    // TODO
+    div(class='modal' + (added ? ' is-active' : ''))
+        div.modal-background
+
+        div.modal-content
+            div.box
+                p MODAL
+
+        button.modal-close.is-large
+
+block append scripts
+    script(src='home.js')

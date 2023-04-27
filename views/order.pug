@@ -1,0 +1,20 @@
+extends templates/layout
+
+include components/navbar
+include components/order/form
+
+block content
+    div.container
+
+        div.columns.is-justify-content-center.pt-2
+
+            div.column.is-10-tablet.is-9-desktop.is-8-widescreen.is-7-fullhd
+
+                a.button.is-primary.is-light.ml-5-mobile(href='/cart')
+                    span.icon: i.bi.bi-chevron-left
+
+                    span Cart
+
+                div.box.mt-2.p-5
+
+                    form(action='/order' method='POST'): +form

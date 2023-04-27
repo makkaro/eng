@@ -1,0 +1,62 @@
+extends templates/layout
+
+include components/navbar
+include components/notification
+
+block append def
+    - var status
+
+    case status
+        when 'success'
+            - var type = 'is-success'
+            - var text = 'Verification link has been sent to given e-mail address.'
+        when 'bad-request'
+            - var type = 'is-warning'
+            - var text = 'Given e-mail address is not valid.'
+        when 'conflict'
+            - var type = 'is-warning'
+            - var text = 'Given e-mail address is bound to an existing account.'
+        when 'server-error'
+            - var type = 'is-warning'
+            - var text = 'Server failure. Try again later.'
+        default
+            - var type = 'is-warning'
+            - var text = 'Unspecified error.'
+
+block content
+    div.container
+        div.mb-6.is-hidden-touch
+
+        div.columns.is-justify-content-center
+            div.column.is-half-tablet.is-two-fifths-desktop.is-one-third-widescreen
+                if status
+                    +notification(type, text)
+
+                form.box.p-5(action='/register' method='POST')
+                    div.field
+                        label.label E-mail address
+
+                        div.control.has-icons-left
+                            input.input(type='email' name='email' required autofocus)
+                            span.icon.is-small.is-left: i.bi.bi-envelope
+
+                    div.field
+                        label.label Password
+
+                        div.control.has-icons-left
+                            input.input(type='password' name='password' required)
+                            span.icon.is-small.is-left: i.bi.bi-key
+
+                    div.field.is-grouped
+                        div.control
+                            input.button.is-primary(type='submit' value='Register')
+                        div.control
+                            a.button.is-light(href='/') Cancel
+
+                p.has-text-centered
+                    | Already have an account?
+                    |
+                    a(href='/login'): u Log in
+
+block append scripts
+    script(src='register.js')

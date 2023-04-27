@@ -1,0 +1,59 @@
+extends templates/layout
+
+include components/navbar
+include components/notification
+
+block append def
+    - var status
+
+    case status
+        when 'not-verified'
+            - var type = 'is-info'
+            - var text = 'Given e-mail address is not yet verified.'
+        when 'bad-request'
+            - var type = 'is-warning'
+            - var text = 'Invalid credentials.'
+        when 'server-error'
+            - var type = 'is-warning'
+            - var text = 'Server failure. Try again later.'
+        default
+            - var type = 'is-warning'
+            - var text = 'Unspecified error.'
+
+block content
+    div.container
+        div.mb-6.is-hidden-touch
+
+        div.columns.is-justify-content-center
+            div.column.is-half-tablet.is-two-fifths-desktop.is-one-third-widescreen
+                if status
+                    +notification(type, text)
+
+                form.box.p-5(action='/login' method='POST')
+                    div.field
+                        label.label E-mail address
+
+                        div.control.has-icons-left
+                            input.input(type='email' name='email' required autofocus)
+                            span.icon.is-small.is-left: i.bi.bi-envelope
+
+                    div.field
+                        label.label Password
+
+                        div.control.has-icons-left
+                            input.input(type='password' name='password' required)
+                            span.icon.is-small.is-left: i.bi.bi-key
+
+                    div.field.is-grouped
+                        div.control
+                            input.button.is-primary(type='submit' value='Log in')
+                        div.control
+                            a.button.is-light(href='/') Cancel
+
+                p.has-text-centered
+                    | Don't have an account?
+                    |
+                    a(href='/register'): u Register
+
+block append scripts
+    script(src='login.js')

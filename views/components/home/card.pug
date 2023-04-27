@@ -1,0 +1,20 @@
+mixin card(product)
+    div.card.p-4
+        a.has-text-grey-dark(href='#')
+            div.image.is-square.mb-4
+                img(src=product.img)
+
+            p.mb-4 #{product.name}
+
+        div.is-relative
+            span.is-size-4 #{parseUSD(product.cost)}
+
+            form(action='/' method='POST')
+                input(type='hidden' name='id' value=product.id)
+
+                button(
+                    class='card-button button is-primary is-outlined is-round is-hidden-desktop'
+                    title='Add to cart'
+                )
+                    div.icon
+                        i.bi.bi-cart-plus
