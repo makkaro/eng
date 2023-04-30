@@ -26,13 +26,18 @@ block content
         div.column.is-narrow.is-hidden-touch
             div.w-12rem
 
-    // TODO
     div(class='modal' + (added ? ' is-active' : ''))
         div.modal-background
-
-        div.modal-content
-            div.box
-                p MODAL
+        div.modal-card
+            header.modal-card-head
+                p Added successfully!
+            footer.modal-card-foot
+                button.button.is-primary.is-light.__modal-cancel
+                    span.icon: i.bi.bi-chevron-left
+                    span Continue shopping
+                a.button.is-primary.is-light.ml-auto(href='/cart')
+                    span View cart
+                    span.icon: i.bi.bi-chevron-right
 
         button.modal-close.is-large
 

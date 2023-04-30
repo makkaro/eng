@@ -33,6 +33,7 @@ async function render(req, res) {
  *     email: '...',
  *     password: '...'
  * }
+ * ~~~
  * @memberof module:ctl.register
  * @arg {object} req - Express request object.
  * @arg {object} res - Express response object.

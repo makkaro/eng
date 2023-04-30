@@ -15,6 +15,7 @@ var ctl = {
     login        : require('./login'),
     logout       : require('./logout'),
     order        : require('./order'),
+    product      : require('./product'),
     register     : require('./register'),
     verify       : require('./verify')
 }

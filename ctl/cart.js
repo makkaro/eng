@@ -140,6 +140,7 @@ async function update(req, res) {
  * {
  *     id: '...'
  * }
+ * ~~~
  * @memberof module:ctl.cart
  * @arg {object} req - Express request object.
  * @arg {object} res - Express response object.

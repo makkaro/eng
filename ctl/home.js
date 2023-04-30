@@ -27,7 +27,7 @@ var db      = require('../lib/db')
  */
 async function render(req, res) {
 
-    res.locals.added         = await req.flash('added').shift()
+    res.locals.added         = req.flash('added').shift()
     res.locals.categories    = await db.Category.findAll()
     res.locals.manufacturers = await db.Manufacturer.findAll()
     res.locals.products      = await db.Product.findAll(build_query(req))

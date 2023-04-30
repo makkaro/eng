@@ -28,5 +28,17 @@ block content
                                     span.icon
                                         i.bi.bi-chevron-right
 
+            else
+                div.columns.is-centered
+                    div.column.is-8
+                        div.box.m-4-tablet
+                            div.content
+                                p.is-size-5 Your cart is empty.
+                                a.button.is-primary.is-light(href='/')
+                                    span.icon: i.bi.bi-chevron-left
+                                    span Return
+
+
+
 block append scripts
     script(src='cart.js')

@@ -1,6 +1,6 @@
 mixin card(product)
     div.card.p-4
-        a.has-text-grey-dark(href='#')
+        a.has-text-grey-dark(href='/product/' + product.id)
             div.image.is-square.mb-4
                 img(src=product.img)
 

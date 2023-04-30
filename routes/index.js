@@ -29,6 +29,14 @@ router.route('/cart/delete')
     .get(ctl.cart.destroy)
 
 
+router.route('/product/:id')
+    .get(ctl.product.render)
+
+
+router.route('/product')
+    .post(ctl.product.add_to_cart)
+
+
 router.route('/confirmation')
     .get(ctl.confirmation.render)
 

@@ -53,7 +53,7 @@ $(document).ready(function () {
     )
 
 
-    $('.modal-background, .modal-close, .modal-content .button').click(function () {
+    $('.modal-background, .modal-close, .modal-content .button, .__modal-cancel').click(function () {
 
         $('.modal').removeClass('is-active')
     })
