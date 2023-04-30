@@ -2,7 +2,8 @@
     "scripts": {
         "start" : "nodemon -q bin",
         "seed"  : "node bin/seed",
-        "docs"  : "jsdoc -c .jsdocrc"
+        "docs"  : "jsdoc -c .jsdocrc",
+        "admin" : "nodemon -q bin/admin"
     },
     "dependencies": {
         "bootstrap-icons"           : "~1.10.4",
@@ -15,6 +16,7 @@
         "express-session"           : "~1.17.3",
         "express-validator"         : "~7.0.1",
         "jquery"                    : "~3.6.4",
+        "multer"                    : "~1.4.5-lts.1",
         "nodemailer"                : "~6.9.1",
         "pg"                        : "~8.10.0",
         "pg-hstore"                 : "~2.3.4",

@@ -1,10 +1,6 @@
 extends templates/layout
 
-include components/navbar
-include components/cart/row
-
-block append def
-    - var cart_items, total
+include mixins/cart/row
 
 block append head
     link(rel='stylesheet' href='cart.css')
@@ -16,7 +12,7 @@ block content
                 div.columns
                     div.column.is-7.is-8-widescreen
                         each cart_item in cart_items
-                            +cart_row(cart_item)
+                            +row(cart_item)
 
                     div.column
                         div.order-box.has-background-light

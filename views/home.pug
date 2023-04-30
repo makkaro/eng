@@ -1,11 +1,6 @@
 extends templates/layout
 
-include components/navbar
-include components/home/card
-include components/home/menu
-
-block append def
-    - var added, categories, manufacturers, products
+include mixins/home/card
 
 block append head
     link(rel='stylesheet' href='home.css')
@@ -19,7 +14,7 @@ block content
 
         div.column.is-narrow.menu-wrapper
             div.is-scrollable.w-12rem
-                +menu
+                include components/home/menu
 
         div.column
             div.container

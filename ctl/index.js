@@ -9,13 +9,14 @@
 
 
 var ctl = {
-    home     : require('./home'),
-    cart     : require('./cart'),
-    login    : require('./login'),
-    logout   : require('./logout'),
-    order    : require('./order'),
-    register : require('./register'),
-    verify   : require('./verify')
+    home         : require('./home'),
+    cart         : require('./cart'),
+    confirmation : require('./confirmation'),
+    login        : require('./login'),
+    logout       : require('./logout'),
+    order        : require('./order'),
+    register     : require('./register'),
+    verify       : require('./verify')
 }
 
 

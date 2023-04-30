@@ -1,0 +1,125 @@
+extends templates/layout
+
+block content
+    div.container
+        div.columns.mt-4
+            div.column.is-9
+                div.box
+                    p.is-size-4.mb-2: b Orders
+
+                    table.table.is-fullwidth.is-striped
+                        thead
+                            tr
+                                th Number
+                                th Created
+                                th Updated
+                                th User
+                                th Status
+                                th
+                        tbody
+                            each order in orders
+                                tr
+                                    td #{order.id}
+                                    td #{order.created_at}
+                                    td #{order.updated_at}
+                                    td #{order.user}
+                                    td: b #{order.status}
+                                    td: a(href='/orders/' + order.id) Details
+
+            div.column.is-3
+                div.box.has-background-white-ter
+                    p.is-size-5.mb-5: b Options
+
+                    form(action='/orders')
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label Sort
+
+                            div.field-body
+                                div.field
+                                    div.select.is-small.is-fullwidth
+                                        select(name='order')
+                                            option(
+                                                value='created_at_desc'
+                                                selected=!/updated_at_desc/.test(original_url)
+                                            ) Newest
+
+                                            option(
+                                                value='updated_at_desc'
+                                                selected=/updated_at_desc/.test(original_url)
+                                            ) Last updated
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label From
+
+                            div.field-body
+                                div.field
+                                    -
+                                        var value = /from=/.test(original_url)
+                                            ? /from=([\d-]{10})/.exec(original_url)[1]
+                                            : ''
+                                    input.input.is-small(type='date' name='from' value=value)
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label To
+
+                            div.field-body
+                                div.field
+                                    -
+                                        var value = /to=/.test(original_url)
+                                            ? /to=([\d-]{10})/.exec(original_url)[1]
+                                            : ''
+                                    input.input.is-small(type='date' name='to' value=value)
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label Status
+
+                            div.field-body
+                                div.field
+                                    div.select.is-small.is-fullwidth
+                                        select(name='status')
+                                            option(
+                                                value='all'
+                                                selected=!/NEW|PAID|FINALIZED|CANCELED/.test(original_url)
+                                            ) All
+                                            option(value='NEW' selected=/NEW/.test(original_url)) New
+                                            option(value='PAID' selected=/PAID/.test(original_url)) Paid
+                                            option(value='FINALIZED' selected=/FINALIZED/.test(original_url)) Finalized
+                                            option(value='CANCELED' selected=/CANCELED/.test(original_url)) Canceled
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label Search
+
+                            div.field-body
+                                div.field
+                                    -
+                                        value = /search=/.test(original_url)
+                                            ? /search=(.*)&/.exec(original_url)[1]
+                                            : ''
+                                    input.input.is-small(type='search' name='search' value=value)
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label By
+
+                            div.field-body
+                                div.field
+                                    div.select.is-small.is-fullwidth
+                                        select(name='search_by')
+                                            option(value='id' selected=!/search_by=user/.test(original_url)) Number
+                                            option(value='user' selected=/search_by=user/.test(original_url)) User
+
+                        div.field.is-horizontal
+                            div.field-label.mr-4
+
+                            div.field-body
+                                div.field
+                                    button.button.is-small.is-primary Submit
+
+block append scripts
+    script(src='orders.js')

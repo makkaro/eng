@@ -1,0 +1,10 @@
+-
+    function search_val(key, url) {
+        var regex = new RegExp(`${key}=([^&]*)`)
+
+        return regex.test(url) ? regex.exec(url)[1] : ''
+    }
+
+    function parseUSD(val) {
+        return '$ ' + val.toString().replace(/\d{2}$/, '.$&')
+    }

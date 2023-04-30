@@ -10,7 +10,10 @@ var db = require('../lib/db')
 
     await db.Category.bulkCreate([
         {name: 'Bottles'},
-        {name: 'Candles'}
+        {name: 'Candles'},
+        {name: 'Pillows'},
+        {name: 'Cans'},
+        {name: 'Boxes'}
     ])
 
     await db.Manufacturer.bulkCreate([
@@ -27,4 +30,6 @@ var db = require('../lib/db')
     ])
 
     await db.User.create({email: 'john@test.com', password: 'john1', verified: true})
+
+    await db.Cart.create({userId: 1})
 })()

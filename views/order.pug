@@ -1,7 +1,6 @@
 extends templates/layout
 
-include components/navbar
-include components/order/form
+include mixins/notification
 
 block content
     div.container
@@ -15,6 +14,10 @@ block content
 
                     span Cart
 
+                if errors.length
+                    div.mt-2
+                        +notification('is-danger', 'Highlighted fields are invalid.')
+
                 div.box.mt-2.p-5
 
-                    form(action='/order' method='POST'): +form
+                    form(action='/order' method='POST'): include components/order/form

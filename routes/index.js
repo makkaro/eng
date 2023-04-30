@@ -9,6 +9,7 @@
 var router = require('express').Router()
 var body = require('express-validator').body
 var ctl = require('../ctl')
+var toolbox = require('../lib/toolbox')
 
 
 router.route('/')
@@ -28,6 +29,10 @@ router.route('/cart/delete')
     .get(ctl.cart.destroy)
 
 
+router.route('/confirmation')
+    .get(ctl.confirmation.render)
+
+
 router.route('/login')
     .get(ctl.login.render)
     .post(body('email').isEmail().normalizeEmail(), ctl.login.login)
@@ -38,8 +43,17 @@ router.route('/logout')
 
 
 router.route('/order')
+    .all(toolbox.redirect_unauthenticated)
     .get(ctl.order.render)
-    .post(ctl.order.order)
+    .post(
+        body('first_name').isAlpha('pl-PL').trim(),
+        body('last_name').isAlpha('pl-PL').trim(),
+        body('telephone').isMobilePhone('pl-PL'),
+        body('street_address').isAlphanumeric('pl-PL', {ignore: ' ./'}).trim(),
+        body('city').isAlpha('pl-PL', {ignore: ' -'}).trim(),
+        body('postal_code').isPostalCode('PL'),
+        ctl.order.order
+    )
 
 
 router.route('/register')

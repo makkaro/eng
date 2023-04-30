@@ -1,0 +1,83 @@
+extends templates/layout
+
+block content
+    div.container
+        div.columns.is-centered.mt-4
+            div.column.is-9
+                div.box
+                    p.is-size-3.mb-5: b Order ##{order.id}
+
+                    div.level.mb-5
+                        div.level-left
+                            p.is-size-5
+                                | Status:
+                                |
+                                b #{order.status}
+
+                        div.level-right
+                            form.level(action='/orders/' + order.id method='POST')
+                                div.field.is-horizontal
+                                    div.field-label.is-small(style='white-space: nowrap')
+                                        label.label Change status
+
+                                    div.field-body
+                                        div.field
+                                            div.select.is-small
+                                                select(name='status')
+                                                    option(
+                                                        value='NEW'
+                                                        selected=order.status == 'NEW'
+                                                    ) NEW
+                                                    option(
+                                                        value='PAID'
+                                                        selected=order.status == 'PAID'
+                                                    ) PAID
+                                                    option(
+                                                        value='FINALIZED'
+                                                        selected=order.status == 'FINALIZED'
+                                                    ) FINALIZED
+                                                    option(
+                                                        value='CANCELED'
+                                                        selected=order.status == 'CANCELED'
+                                                    ) CANCELED
+
+                                        div.field
+                                            button.button.is-primary.is-small Save
+
+
+
+
+
+                    p.is-size-5.mt-5 Details
+
+                    pre.mt-2
+                        | Created by : #{order.user}
+                        | Status     : #{order.status}
+                        | Total      : #{order.total}
+                        | Created at : #{order.created_at} #{order.created_at_t}
+                        | Updated at : #{order.updated_at} #{order.updated_at_t}
+                        |
+                        | Address:
+                        |     Name           : #{order.address.name}
+                        |     Telephone      : #{order.address.telephone}
+                        |     Street address : #{order.address.street_address}
+                        |     City           : #{order.address.city}
+                        |     Postal code    : #{order.address.postal_code}
+
+                    p.is-size-5.mt-5 Ordered items
+
+                    table.table.is-striped.is-fullwidth
+                        thead
+                            tr
+                                th Name
+                                th Cost
+                                th Amount
+                                th Subtotal
+                        tbody
+                            each item in order.items
+                                tr
+                                    td #{item.name}
+                                    td #{item.cost}
+                                    td #{item.amount}
+                                    td #{item.subtotal}
+

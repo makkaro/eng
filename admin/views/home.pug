@@ -1,0 +1,17 @@
+extends templates/layout
+
+block content
+    div.container
+        div.columns.is-centered
+            div.column.is-10
+                div.box.mt-6
+                    div.content
+                        p.is-size-4 Welcome to the admin panel.
+
+                        p Please select a resource to modify:
+
+                        ul
+                            li: a(href='/orders') Orders
+                            li: a(href='/products') Products
+                            li: a(href='/categories') Categories
+                            li: a(href='/manufacturers') Manufacturers

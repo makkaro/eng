@@ -1,11 +1,8 @@
 extends templates/layout
 
-include components/navbar
-include components/notification
+include mixins/notification
 
 block append def
-    - var status
-
     case status
         when 'success'
             - var type = 'is-success'

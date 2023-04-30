@@ -23,6 +23,72 @@ module.exports = function (sequelize, DataTypes) {
             allowNull    : false,
             defaultValue : 'NEW',
             type         : DataTypes.ENUM('NEW', 'PAID', 'FINALIZED', 'CANCELED')
+        },
+
+        /**
+         * ***VARCHAR(255)***
+         *
+         * @memberof module:db.Order
+         * @instance
+         */
+        first_name: {
+            allowNull    : false,
+            type         : DataTypes.STRING
+        },
+
+        /**
+         * ***VARCHAR(255)***
+         *
+         * @memberof module:db.Order
+         * @instance
+         */
+        last_name: {
+            allowNull    : false,
+            type         : DataTypes.STRING
+        },
+
+        /**
+         * ***VARCHAR(255)***
+         *
+         * @memberof module:db.Order
+         * @instance
+         */
+        telephone: {
+            allowNull    : false,
+            type         : DataTypes.STRING
+        },
+
+        /**
+         * ***VARCHAR(255)***
+         *
+         * @memberof module:db.Order
+         * @instance
+         */
+        street_address: {
+            allowNull    : false,
+            type         : DataTypes.STRING
+        },
+
+        /**
+         * ***VARCHAR(255)***
+         *
+         * @memberof module:db.Order
+         * @instance
+         */
+        city: {
+            allowNull    : false,
+            type         : DataTypes.STRING
+        },
+
+        /**
+         * ***VARCHAR(255)***
+         *
+         * @memberof module:db.Order
+         * @instance
+         */
+        postal_code: {
+            allowNull    : false,
+            type         : DataTypes.STRING
         }
     })
 

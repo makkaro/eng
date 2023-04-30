@@ -1,56 +1,62 @@
-mixin form
-    div.field.is-horizontal
-        div.field-label.is-normal: span.label Name
+- var first_name     = {name: 'first_name',     placeholder: 'First name',       icon: 'bi bi-person-circle'}
+- var last_name      = {name: 'last_name',      placeholder: 'Last name',        icon: 'bi bi-person-circle'}
+- var telephone      = {name: 'telephone',      placeholder: 'Telephone number', icon: 'bi bi-telephone-fill'}
+- var street_address = {name: 'street_address', placeholder: 'Street address',   icon: 'bi bi-signpost-split-fill'}
+- var city           = {name: 'city',           placeholder: 'City',             icon: 'bi bi-building-fill'}
+- var postal_code    = {name: 'postal_code',    placeholder: 'Postal code',      icon: 'bi bi-envelope-fill'}
 
-        div.field-body
-            div.field
-                div.control.has-icons-left
-                    input.input(name='first_name' placeholder='First name' required)
-                    span.icon.is-small.is-left: i.bi.bi-person-circle
+mixin field(t)
+    div.field
+        div.control.has-icons-left
+            input(
+                required
+                name=t.name
+                placeholder=t.placeholder
+                value=data && data[t.name]
+                class='input ' + (errors.includes(t.name) ? 'is-danger' : '')
+            )
 
-            div.field
-                div.control.has-icons-left
-                    input.input(name='last_name' placeholder='Last name' required)
-                    span.icon.is-small.is-left: i.bi.bi-person-circle
+            span.icon.is-small.is-left: i(class=t.icon)
 
-    div.field.is-horizontal
-        div.field-label.is-normal: span.label Telephone
+//----------------------------------------------------------------------------------------------------------------------
+div.field.is-horizontal
+    div.field-label.is-normal
+        span.label Name
 
-        div.field-body
-            div.field
-                div.control.has-icons-left
-                    input.input(type='tel' name='telephone' placeholder='Telephone number' required)
-                    span.icon.is-small.is-left: i.bi.bi-telephone-fill
+    div.field-body
+        +field(first_name)
 
-    div.field.is-horizontal
-        div.field-label.is-normal: span.label Address
+        +field(last_name)
 
-        div.field-body
-            div.field
-                div.control.has-icons-left
-                    input.input(name='street_address' placeholder='Street address' required)
-                    span.icon.is-small.is-left: i.bi.bi-signpost-split-fill
+div.field.is-horizontal
+    div.field-label.is-normal
+        span.label Telephone
 
-    div.field.is-horizontal
-        div.field-label
+    div.field-body
+        +field(telephone)
 
-        div.field-body
-            div.field
-                div.control.has-icons-left
-                    input.input(name='city' placeholder='City' required)
-                    span.icon.is-small.is-left: i.bi.bi-building-fill
+div.field.is-horizontal
+    div.field-label.is-normal
+        span.label Address
 
-            div.field
-                div.control.has-icons-left
-                    input.input(name='postal_code' placeholder='Postal code' required)
-                    span.icon.is-small.is-left: i.bi.bi-envelope-fill
+    div.field-body
+        +field(street_address)
 
-    div.field.is-horizontal
-        div.field-label
+div.field.is-horizontal
+    div.field-label
 
-        div.field-body
-            div.field
-                div.control
-                    button.button.is-primary
-                        span Order
-                        span.icon: i.bi.bi-chevron-right
+    div.field-body
+        +field(city)
+
+        +field(postal_code)
+
+div.field.is-horizontal
+    div.field-label
+
+    div.field-body
+        div.field
+            div.control
+                button.button.is-primary
+                    span Order
+
+                    span.icon: i.bi.bi-chevron-right

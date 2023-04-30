@@ -1,0 +1,78 @@
+extends templates/layout
+
+block content
+    div.container
+        div.columns.is-centered.mt-4
+            div.column.is-10
+                if msg
+                    div(class='notification ' + msg_type)
+                        button.delete
+                        p #{msg}
+
+                div.box
+                    div.level.mb-6
+                        div.level-left
+                            p.is-size-4: b Categories
+
+                        div.level-right
+                            div.level
+                                form(action='/categories')
+                                    div.field.is-horizontal
+                                        div.field-label
+                                        div.field-body
+                                            div.field
+                                                div.control
+                                                    input.input.is-small(
+                                                        name='search'
+                                                        value=search_val('search', original_url)
+                                                    )
+                                            div.field
+                                                div.control
+                                                    button.button.is-small
+                                                        span.icon: i.bi.bi-search
+                                                        span Search
+
+                                button.button.is-small.ml-3.__modal-trigger.__modal-new
+                                    span.icon: i.bi.bi-plus
+                                    span Add new
+
+                    if categories
+                        table.table.is-fullwidth.is-striped
+                            each category in categories
+                                tr: td.level
+                                    div.level-left #{category.name}
+                                    div.level-right
+                                        button.button.is-small.mr-3.__modal-trigger
+                                            span.icon: i.bi.bi-pen
+                                            span Edit
+                                            span.is-hidden.__id #{category.id}
+                                            span.is-hidden.__name #{category.name}
+
+                                        form(action='/categories/delete')
+                                            input(type='hidden' name='id' value=category.id)
+                                            input(type='hidden' name='search' value=search_val('search', original_url))
+
+                                            button.button.is-small
+                                                span.icon: i.bi.bi-trash
+                                                span Delete
+
+    div#modal.modal
+        div.modal-background
+        div.modal-card
+            header.modal-card-head
+                p#modal-title.modal-card-title
+                button.delete
+            section.modal-card-body
+                form#modal-form(action='/categories/update')
+                    input(type='hidden' name='search' value=search_val('search', original_url))
+                    input#modal-input-id(type='hidden' name='id')
+                    div.field
+                        label.label Name
+                        div.control
+                            input#modal-input-name.input(name='name')
+            footer.modal-card-foot
+                button.button.is-success(form='modal-form') Save
+                button.button Cancel
+
+block append scripts
+    script(src='/categories.js')

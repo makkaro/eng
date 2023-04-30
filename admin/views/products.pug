@@ -1,0 +1,180 @@
+extends templates/layout
+
+block content
+    div.container
+        div.columns.mt-4
+            div.column.is-9
+                if msg
+                    div(class='notification ' + msg_type)
+                        button.delete
+                        p #{msg}
+
+                div.box
+                    div.level.mb-6
+                        div.level-left
+                            p.is-size-4: b Products
+
+                        div.level-right
+                            button.button.is-small.__modal-trigger.__modal-new
+                                span.icon: i.bi.bi-plus
+                                span Add new
+
+                    if products
+                        table.table.is-fullwidth.is-striped
+                            each product in products
+                                tr: td.level
+                                    div.level-left #{product.name}
+                                    div.level-right
+                                        p.mr-4
+                                            | #{parseUSD(product.cost)}
+
+                                        button.button.is-small.mr-3.__modal-trigger
+                                            span.icon: i.bi.bi-pen
+                                            span Edit
+                                            span.is-hidden.__id #{product.id}
+                                            span.is-hidden.__name #{product.name}
+                                            span.is-hidden.__cost #{product.cost}
+                                            span.is-hidden.__category #{product.category.id}
+                                            span.is-hidden.__manufacturer #{product.manufacturer.id}
+                                            span.is-hidden.__img #{product.img}
+
+                                        form(action='/products/delete')
+                                            input(type='hidden' name='search' value=search_val('search', original_url))
+                                            input(type='hidden' name='order' value=search_val('order', original_url))
+                                            input(
+                                                type='hidden'
+                                                name='category'
+                                                value=search_val('category', original_url)
+                                            )
+                                            input(
+                                                type='hidden'
+                                                name='manufacturer'
+                                                value=search_val('manufacturer', original_url)
+                                            )
+
+                                            input(type='hidden' name='p_id' value=product.id)
+
+                                            button.button.is-small
+                                                span.icon: i.bi.bi-trash
+                                                span Delete
+
+            div.column.is-3
+                div.box.has-background-white-ter
+                    p.is-size-5.mb-5: b Options
+
+                    form#options-form(action='/products')
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label Sort
+                            div.field-body
+                                div.field
+                                    div.select.is-small.is-fullwidth
+                                        select(name='order')
+                                            option(value='name_asc' selected=/name_asc/.test(original_url)) Name
+                                            option(value='cost_asc' selected=/cost_asc/.test(original_url)) Cheapest
+                                            option(
+                                                value='cost_desc'
+                                                selected=/cost_desc/.test(original_url)
+                                            ) Most expensive
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label Cat.
+                            div.field-body
+                                div.field
+                                    div.select.is-small.is-fullwidth
+                                        select(name='category')
+                                            option(value='all' selected=!/category/.test(original_url)) All
+                                            each category in categories
+                                                option(
+                                                    value=category.id
+                                                    selected=original_url.includes('category=' + category.id)
+                                                ) #{category.name}
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label Man.
+                            div.field-body
+                                div.field
+                                    div.select.is-small.is-fullwidth
+                                        select(name='manufacturer')
+                                            option(value='all' selected=!/manufacturer/.test(original_url)) All
+                                            each manufacturer in manufacturers
+                                                option(
+                                                    value=manufacturer.id
+                                                    selected=original_url.includes('manufacturer=' + manufacturer.id)
+                                                ) #{manufacturer.name}
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+                                label.label Search
+                            div.field-body
+                                div.field
+                                    input.input.is-small(name='search' value=search_val('search', original_url))
+
+                        div.field.is-horizontal
+                            div.field-label.is-small.mr-4
+
+                            div.field-body
+                                div.field
+                                    button.button.is-success.is-small Submit
+
+
+    div#modal.modal
+        div.modal-background
+        div.modal-card
+            header.modal-card-head
+                p#modal-title.modal-card-title Temp
+                button.delete
+            section.modal-card-body
+                form#modal-form(action='/products/update' enctype='multipart/form-data' method='POST')
+                    input(type='hidden' name='search' value=search_val('search', original_url))
+                    input(type='hidden' name='order' value=search_val('order', original_url))
+                    input(type='hidden' name='category' value=search_val('category', original_url))
+                    input(type='hidden' name='manufacturer' value=search_val('manufacturer', original_url))
+
+                    input#modal-input-id(type='hidden' name='p_id')
+                    div.field
+                        label.label Name
+                        div.control
+                            input#modal-input-name.input(name='p_name')
+                    div.field
+                        label.label
+                            | Cost
+                            |
+                            span.has-text-grey.has-text-weight-normal: i (In US cents)
+                        div.control
+                            input#modal-input-cost.input(name='p_cost')
+                    div.field
+                        label.label Category
+                        div.select.is-fullwidth
+                            select#modal-input-category(name='p_category')
+                                each category in categories
+                                    option(value=category.id) #{category.name}
+                    div.field
+                        label.label Manufacturer
+                        div.select.is-fullwidth
+                            select#modal-input-manufacturer(name='p_manufacturer')
+                                each manufacturer in manufacturers
+                                    option(value=manufacturer.id) #{manufacturer.name}
+
+                    div.field
+                        label.label
+                            | Image
+                            |
+                            span.has-text-grey.has-text-weight-normal: i (.jpg format, leave empty for no change)
+                        div.file.has-name.is-fullwidth
+                            label.file-label
+                                input.file-input(type='file' name='p_img' accept='image/jpeg')
+                                span.file-cta
+                                    span.file-icon
+                                        i.bi.bi-upload
+                                    span.file-label Browse
+                                span.file-name Temp
+
+            footer.modal-card-foot
+                button.button.is-success(form='modal-form') Save
+                button.button Cancel
+
+block append scripts
+    script(src='/products.js')
